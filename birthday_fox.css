@@ -6,10 +6,25 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
+  padding: 1em;
+  box-sizing: border-box;
 }
 
 .container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
   text-align: center;
+}
+
+.fox-wrapper {
+  position: relative;
+  height: 220px;
+  margin-bottom: 2em;
+}
+
+.content-wrapper {
+  width: 100%;
 }
 
 h1 {
@@ -30,7 +45,7 @@ p {
   position: relative;
   width: 200px;
   height: 220px;
-  margin: 0 auto 30px auto;
+  margin: 0 auto;
 }
 
 .fox .ear {
@@ -236,32 +251,46 @@ p {
   margin-bottom: 1em;
 }
 .fox-gallery {
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: 2em;
-  justify-content: center;
+  padding: 1em;
+  width: 100%;
 }
 .fox-card {
   background: #fff;
   border-radius: 16px;
   box-shadow: 0 2px 12px 0 #ffecd2;
   padding: 1em;
-  width: 200px;
-  text-align: center;
+  display: flex;
+  flex-direction: column;
   transition: transform 0.2s, box-shadow 0.2s;
 }
 .fox-card:hover {
   transform: translateY(-8px) scale(1.04);
   box-shadow: 0 8px 24px 0 #ffb347;
 }
-.fox-card img {
-  width: 120px;
-  height: 120px;
-  object-fit: contain;
-  border-radius: 12px;
-  margin-bottom: 0.5em;
+.card-image {
+  width: 100%;
+  height: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   background: #ffe5b4;
-  box-shadow: 0 2px 8px #ffecd2;
+  border-radius: 12px;
+  margin-bottom: 1em;
+  overflow: hidden;
+}
+.card-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.card-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  text-align: left;
 }
 .fox-card h3 {
   margin: 0.5em 0 0.2em 0;
@@ -273,14 +302,126 @@ p {
   font-size: 0.9em;
   margin: 0.5em 0;
 }
-@media (max-width: 700px) {
-  .fox-gallery {
-    flex-direction: column;
-    align-items: center;
+.facts-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2em;
+  padding: 1em;
+  width: 100%;
+}
+.quotes-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2em;
+  padding: 1em;
+  width: 100%;
+}
+@media (max-width: 768px) {
+  body {
+    padding: 0.5em;
   }
-  .fox-card {
-    width: 90vw;
-    max-width: 320px;
+
+  .fox-wrapper {
+    height: 180px;
+  }
+
+  .fox {
+    width: 160px;
+    height: 180px;
+  }
+
+  h1 {
+    font-size: 2.2em;
+  }
+
+  p {
+    font-size: 1.2em;
+  }
+
+  .fox-gallery,
+  .facts-container,
+  .quotes-container {
+    grid-template-columns: 1fr;
+    gap: 1.5em;
+    padding: 0.5em;
+  }
+
+  .fox-card,
+  .fact-card,
+  .quotes-container blockquote {
+    width: 100%;
+  }
+
+  .card-image {
+    height: 180px;
+  }
+}
+@media (max-width: 480px) {
+  .fox-wrapper {
+    height: 150px;
+  }
+
+  .fox {
+    width: 130px;
+    height: 150px;
+  }
+
+  h1 {
+    font-size: 1.8em;
+  }
+
+  p {
+    font-size: 1.1em;
+  }
+
+  .famous-foxes,
+  .fox-facts,
+  .fox-quotes {
+    padding: 1em 0.5em;
+  }
+
+  .famous-foxes h2,
+  .fox-facts h2,
+  .fox-quotes h2 {
+    font-size: 1.4em;
+  }
+
+  .card-image {
+    height: 150px;
+  }
+
+  .fox-card h3 {
+    font-size: 1.1em;
+  }
+
+  .fox-card p {
+    font-size: 0.9em;
+  }
+}
+
+/* Print styles */
+@media print {
+  body {
+    background: none;
+  }
+
+  .container {
+    max-width: 100%;
+  }
+
+  .fox-gallery,
+  .facts-container,
+  .quotes-container {
+    display: block;
+  }
+
+  .fox-card,
+  .fact-card,
+  .quotes-container blockquote {
+    break-inside: avoid;
+    margin-bottom: 1em;
+    box-shadow: none;
+    border: 1px solid #ddd;
   }
 }
 
@@ -299,19 +440,11 @@ p {
   margin-bottom: 1em;
 }
 
-.facts-container {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 2em;
-  justify-content: center;
-}
-
 .fact-card {
   background: #fff;
   border-radius: 16px;
   box-shadow: 0 2px 12px 0 #ffecd2;
   padding: 1.5em;
-  width: 250px;
   text-align: center;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
@@ -349,19 +482,11 @@ p {
   margin-bottom: 1em;
 }
 
-.quotes-container {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 2em;
-  justify-content: center;
-}
-
 .quotes-container blockquote {
   background: #fff;
   border-radius: 16px;
   box-shadow: 0 2px 12px 0 #ffecd2;
   padding: 1.5em;
-  width: 300px;
   text-align: center;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   position: relative;
@@ -394,19 +519,4 @@ p {
   color: #ff7300;
   font-size: 0.9em;
   font-style: normal;
-}
-
-/* Responsive Design */
-@media (max-width: 700px) {
-  .facts-container,
-  .quotes-container {
-    flex-direction: column;
-    align-items: center;
-  }
-
-  .fact-card,
-  .quotes-container blockquote {
-    width: 90%;
-    max-width: 300px;
-  }
 } 
