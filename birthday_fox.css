@@ -1,0 +1,412 @@
+body {
+  background: linear-gradient(135deg, #ffe5b4 0%, #ffecd2 100%);
+  min-height: 100vh;
+  margin: 0;
+  font-family: 'Segoe UI', 'Arial', sans-serif;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.container {
+  text-align: center;
+}
+
+h1 {
+  color: #ff7300;
+  font-size: 3em;
+  margin: 0.5em 0 0.2em 0;
+  letter-spacing: 2px;
+  text-shadow: 2px 2px 0 #fff, 4px 4px 0 #ffb347;
+}
+
+p {
+  color: #b85c00;
+  font-size: 1.5em;
+  margin: 0;
+}
+
+.fox {
+  position: relative;
+  width: 200px;
+  height: 220px;
+  margin: 0 auto 30px auto;
+}
+
+.fox .ear {
+  position: absolute;
+  top: 0;
+  width: 60px;
+  height: 80px;
+  background: #ff7300;
+  border-radius: 60% 60% 0 0 / 100% 100% 0 0;
+  z-index: 1;
+}
+.fox .ear.left {
+  left: 0;
+  transform: rotate(-15deg);
+}
+.fox .ear.right {
+  right: 0;
+  transform: rotate(15deg);
+}
+.fox .face {
+  position: absolute;
+  top: 40px;
+  left: 20px;
+  width: 160px;
+  height: 120px;
+  background: #ff7300;
+  border-radius: 80px 80px 100px 100px / 90px 90px 120px 120px;
+  z-index: 2;
+  box-shadow: 0 8px 0 #fff3e0 inset;
+}
+.fox .eye {
+  position: absolute;
+  top: 70px;
+  width: 18px;
+  height: 18px;
+  background: #222;
+  border-radius: 50%;
+  z-index: 3;
+}
+.fox .eye.left {
+  left: 40px;
+}
+.fox .eye.right {
+  right: 40px;
+}
+.fox .nose {
+  position: absolute;
+  left: 50%;
+  top: 110px;
+  width: 22px;
+  height: 16px;
+  background: #222;
+  border-radius: 50% 50% 60% 60% / 60% 60% 100% 100%;
+  transform: translateX(-50%);
+  z-index: 4;
+}
+.fox .cheek {
+  position: absolute;
+  top: 110px;
+  width: 30px;
+  height: 18px;
+  background: #fff3e0;
+  border-radius: 50%;
+  z-index: 3;
+}
+.fox .cheek.left {
+  left: 10px;
+}
+.fox .cheek.right {
+  right: 10px;
+}
+.fox .body {
+  position: absolute;
+  top: 140px;
+  left: 50px;
+  width: 100px;
+  height: 70px;
+  background: #ff7300;
+  border-radius: 50px 50px 60px 60px / 60px 60px 80px 80px;
+  z-index: 1;
+}
+.fox .tail {
+  position: absolute;
+  top: 160px;
+  right: -40px;
+  width: 80px;
+  height: 40px;
+  background: linear-gradient(90deg, #ff7300 60%, #fff3e0 100%);
+  border-radius: 40px 80px 80px 40px / 40px 40px 80px 80px;
+  transform: rotate(20deg);
+  z-index: 0;
+  box-shadow: 0 0 10px #ffb347;
+}
+
+@keyframes fox-bounce {
+  0% { transform: translateY(0); }
+  20% { transform: translateY(-20px); }
+  40% { transform: translateY(0); }
+  60% { transform: translateY(-10px); }
+  80% { transform: translateY(0); }
+  100% { transform: translateY(0); }
+}
+
+@keyframes ear-wiggle {
+  0%, 100% { transform: rotate(-15deg); }
+  20% { transform: rotate(-5deg); }
+  40% { transform: rotate(-25deg); }
+  60% { transform: rotate(-10deg); }
+  80% { transform: rotate(-20deg); }
+}
+@keyframes ear-wiggle-right {
+  0%, 100% { transform: rotate(15deg); }
+  20% { transform: rotate(5deg); }
+  40% { transform: rotate(25deg); }
+  60% { transform: rotate(10deg); }
+  80% { transform: rotate(20deg); }
+}
+@keyframes tail-sway {
+  0%, 100% { transform: rotate(20deg); }
+  25% { transform: rotate(35deg); }
+  50% { transform: rotate(10deg); }
+  75% { transform: rotate(30deg); }
+}
+@keyframes fade-in {
+  from { opacity: 0; transform: translateY(40px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fox-walk {
+  from {
+    left: 0%;
+    transform: translateX(0);
+  }
+  to {
+    left: 80%;
+    transform: translateX(0);
+  }
+}
+
+/* Scroll-driven animation using scroll-timeline (for modern browsers) */
+@supports (animation-timeline: auto) {
+  .fox {
+    position: absolute;
+    left: 0%;
+    top: 60px;
+    animation: fox-walk 2s linear both, fox-bounce 1.5s cubic-bezier(.5,1.5,.5,1) both;
+    animation-timeline: scroll(root block), scroll(root block);
+    animation-range: entry 0% cover 100%, entry 0% cover 40%;
+  }
+  .container {
+    position: relative;
+    min-height: 400px;
+  }
+  .fox .ear.left {
+    animation: ear-wiggle 1.2s linear both;
+    animation-timeline: scroll(root block);
+    animation-range: entry 10% cover 40%;
+  }
+  .fox .ear.right {
+    animation: ear-wiggle-right 1.2s linear both;
+    animation-timeline: scroll(root block);
+    animation-range: entry 10% cover 40%;
+  }
+  .fox .tail {
+    animation: tail-sway 1.5s ease-in-out both;
+    animation-timeline: scroll(root block);
+    animation-range: entry 20% cover 60%;
+  }
+  h1, p {
+    animation: fade-in 1.2s cubic-bezier(.5,1.5,.5,1) both;
+    animation-timeline: scroll(root block);
+    animation-range: entry 30% cover 80%;
+  }
+}
+
+/* Fallback for browsers without scroll-timeline: play on load */
+@supports not (animation-timeline: auto) {
+  .fox {
+    position: absolute;
+    left: 0%;
+    top: 60px;
+    animation: fox-walk 2s linear both, fox-bounce 1.5s cubic-bezier(.5,1.5,.5,1) both;
+  }
+  .container {
+    position: relative;
+    min-height: 400px;
+  }
+  h1, p {
+    animation: fade-in 1.2s cubic-bezier(.5,1.5,.5,1) both;
+  }
+}
+
+.famous-foxes {
+  margin: 3em 0 1em 0;
+  padding: 2em 1em;
+  background: rgba(255, 243, 224, 0.7);
+  border-radius: 24px;
+  box-shadow: 0 4px 24px 0 #ffecd2;
+}
+.famous-foxes h2 {
+  color: #b85c00;
+  font-size: 2em;
+  margin-bottom: 1em;
+}
+.fox-gallery {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2em;
+  justify-content: center;
+}
+.fox-card {
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 2px 12px 0 #ffecd2;
+  padding: 1em;
+  width: 200px;
+  text-align: center;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+.fox-card:hover {
+  transform: translateY(-8px) scale(1.04);
+  box-shadow: 0 8px 24px 0 #ffb347;
+}
+.fox-card img {
+  width: 120px;
+  height: 120px;
+  object-fit: contain;
+  border-radius: 12px;
+  margin-bottom: 0.5em;
+  background: #ffe5b4;
+  box-shadow: 0 2px 8px #ffecd2;
+}
+.fox-card h3 {
+  margin: 0.5em 0 0.2em 0;
+  color: #ff7300;
+  font-size: 1.2em;
+}
+.fox-card p {
+  color: #666;
+  font-size: 0.9em;
+  margin: 0.5em 0;
+}
+@media (max-width: 700px) {
+  .fox-gallery {
+    flex-direction: column;
+    align-items: center;
+  }
+  .fox-card {
+    width: 90vw;
+    max-width: 320px;
+  }
+}
+
+/* Fox Facts Section */
+.fox-facts {
+  margin: 3em 0 1em 0;
+  padding: 2em 1em;
+  background: rgba(255, 243, 224, 0.7);
+  border-radius: 24px;
+  box-shadow: 0 4px 24px 0 #ffecd2;
+}
+
+.fox-facts h2 {
+  color: #b85c00;
+  font-size: 2em;
+  margin-bottom: 1em;
+}
+
+.facts-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2em;
+  justify-content: center;
+}
+
+.fact-card {
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 2px 12px 0 #ffecd2;
+  padding: 1.5em;
+  width: 250px;
+  text-align: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.fact-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 4px 20px 0 #ffb347;
+}
+
+.fact-card h3 {
+  color: #ff7300;
+  font-size: 1.3em;
+  margin: 0 0 0.5em 0;
+}
+
+.fact-card p {
+  color: #666;
+  font-size: 1em;
+  line-height: 1.4;
+  margin: 0;
+}
+
+/* Fox Quotes Section */
+.fox-quotes {
+  margin: 3em 0 1em 0;
+  padding: 2em 1em;
+  background: rgba(255, 243, 224, 0.7);
+  border-radius: 24px;
+  box-shadow: 0 4px 24px 0 #ffecd2;
+}
+
+.fox-quotes h2 {
+  color: #b85c00;
+  font-size: 2em;
+  margin-bottom: 1em;
+}
+
+.quotes-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2em;
+  justify-content: center;
+}
+
+.quotes-container blockquote {
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 2px 12px 0 #ffecd2;
+  padding: 1.5em;
+  width: 300px;
+  text-align: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  position: relative;
+}
+
+.quotes-container blockquote:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 4px 20px 0 #ffb347;
+}
+
+.quotes-container blockquote::before {
+  content: '"';
+  position: absolute;
+  top: -20px;
+  left: 20px;
+  font-size: 4em;
+  color: #ffb347;
+  opacity: 0.3;
+}
+
+.quotes-container blockquote p {
+  color: #666;
+  font-size: 1.1em;
+  line-height: 1.4;
+  margin: 0 0 1em 0;
+  font-style: italic;
+}
+
+.quotes-container blockquote cite {
+  color: #ff7300;
+  font-size: 0.9em;
+  font-style: normal;
+}
+
+/* Responsive Design */
+@media (max-width: 700px) {
+  .facts-container,
+  .quotes-container {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .fact-card,
+  .quotes-container blockquote {
+    width: 90%;
+    max-width: 300px;
+  }
+} 
